@@ -51,6 +51,9 @@ public class Main {
         System.out.println(transportShip.calcFee(15.7));
     }
 
+    /**
+     * @author Alyasaf Meireles
+     */
     private static void observer() {
         Channel channel = new Channel();
 
