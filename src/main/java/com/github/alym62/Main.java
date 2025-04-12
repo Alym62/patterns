@@ -1,5 +1,8 @@
 package com.github.alym62;
 
+import com.github.alym62.composite.ComponentDocument;
+import com.github.alym62.composite.Section;
+import com.github.alym62.composite.Text;
 import com.github.alym62.facade.EcommerceFacade;
 import com.github.alym62.factory.method.Transport;
 import com.github.alym62.factory.method.factories.ShipFactory;
@@ -9,9 +12,9 @@ import com.github.alym62.factory.simple.Shape;
 import com.github.alym62.factory.simple.ShapeFactory;
 import com.github.alym62.memento.Editor;
 import com.github.alym62.memento.History;
-import com.github.alym62.observer.Subscriber;
-import com.github.alym62.observer.Observer;
 import com.github.alym62.observer.Channel;
+import com.github.alym62.observer.Observer;
+import com.github.alym62.observer.Subscriber;
 
 import java.util.UUID;
 
@@ -31,6 +34,9 @@ public class Main {
 
         // Memento pattern
         memento();
+
+        // Composite pattern
+        composite();
     }
 
     /**
@@ -83,7 +89,7 @@ public class Main {
     /**
      * @author Alyasaf Meireles
      */
-    public static void facade() {
+    private static void facade() {
         EcommerceFacade facade = new EcommerceFacade();
         facade.processOrder(UUID.randomUUID(), "aly@email.com", 3.185);
     }
@@ -91,7 +97,7 @@ public class Main {
     /**
      * @author Alyasaf Meireles
      */
-    public static void memento() {
+    private static void memento() {
         Editor editor = new Editor();
         History history = new History();
 
@@ -108,5 +114,27 @@ public class Main {
         editor.restore(history.getMementoByIndex(0));
 
         System.out.println("Conteúdo atual: " + editor.getContent());
+    }
+
+    /**
+     * @author Alyasaf Meireles
+     */
+    private static void composite() {
+        ComponentDocument textOneHeader = new Text("Olá mundo");
+        ComponentDocument textTwoHeader = new Text("Aly");
+
+        Section header = new Section("Cabeçalho");
+        header.addElement(textOneHeader);
+        header.addElement(textTwoHeader);
+
+        ComponentDocument textOneBody = new Text("Conteúdo");
+        ComponentDocument textTwoBody = new Text("Tudo certo");
+        Section body = new Section("Corpo");
+        body.addElement(textOneBody);
+        body.addElement(textTwoBody);
+
+        System.out.println("Documento completo:");
+        header.show();
+        body.show();
     }
 }
