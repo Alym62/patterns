@@ -6,6 +6,9 @@ import com.github.alym62.factory.method.factories.TransportFactory;
 import com.github.alym62.factory.method.factories.TruckFactory;
 import com.github.alym62.factory.simple.Shape;
 import com.github.alym62.factory.simple.ShapeFactory;
+import com.github.alym62.observer.Subscriber;
+import com.github.alym62.observer.Observer;
+import com.github.alym62.observer.Channel;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +17,9 @@ public class Main {
 
         // Factory method pattern
         factoryMethod();
+
+        // Observer pattern
+        observer();
     }
 
     /**
@@ -43,5 +49,20 @@ public class Main {
 
         transportShip.deliver();
         System.out.println(transportShip.calcFee(15.7));
+    }
+
+    private static void observer() {
+        Channel channel = new Channel();
+
+        Observer observerOne = new Subscriber("Alyasaf");
+        Observer observerTwo = new Subscriber("Thaina");
+
+        channel.addObserver(observerOne);
+        channel.addObserver(observerTwo);
+
+        channel.publisherNotice("Nova IA chinesa lançada: DeepSeek");
+
+        channel.removeObserver(observerOne);
+        channel.publisherNotice("Versão 24 do Java ☕");
     }
 }
