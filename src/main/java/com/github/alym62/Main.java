@@ -7,6 +7,8 @@ import com.github.alym62.factory.method.factories.TransportFactory;
 import com.github.alym62.factory.method.factories.TruckFactory;
 import com.github.alym62.factory.simple.Shape;
 import com.github.alym62.factory.simple.ShapeFactory;
+import com.github.alym62.memento.Editor;
+import com.github.alym62.memento.History;
 import com.github.alym62.observer.Subscriber;
 import com.github.alym62.observer.Observer;
 import com.github.alym62.observer.Channel;
@@ -26,6 +28,9 @@ public class Main {
 
         // Facade pattern
         facade();
+
+        // Memento pattern
+        memento();
     }
 
     /**
@@ -81,5 +86,27 @@ public class Main {
     public static void facade() {
         EcommerceFacade facade = new EcommerceFacade();
         facade.processOrder(UUID.randomUUID(), "aly@email.com", 3.185);
+    }
+
+    /**
+     * @author Alyasaf Meireles
+     */
+    public static void memento() {
+        Editor editor = new Editor();
+        History history = new History();
+
+        editor.writer("Oiiii");
+        history.add(editor.save());
+
+        System.out.println(editor.getContent());
+
+        editor.writer("Tudo certo??");
+        history.add(editor.save());
+
+        System.out.println(editor.getContent());
+
+        editor.restore(history.getMementoByIndex(0));
+
+        System.out.println("Conteúdo atual: " + editor.getContent());
     }
 }
