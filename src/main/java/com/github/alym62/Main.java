@@ -1,5 +1,6 @@
 package com.github.alym62;
 
+import com.github.alym62.builder.Car;
 import com.github.alym62.composite.ComponentDocument;
 import com.github.alym62.composite.Section;
 import com.github.alym62.composite.Text;
@@ -37,24 +38,33 @@ public class Main {
 
         // Composite pattern
         composite();
+
+        // Builder pattern
+        builder();
     }
 
     /**
      * @author Alyasaf Meireles
      */
     private static void simpleFactory() {
+        System.out.println("Simple factory pattern >>>");
+
         ShapeFactory factory = new ShapeFactory();
         Shape circle = factory.createShapeFactory("circle");
         circle.draw();
 
         Shape rectangle = factory.createShapeFactory("rectangle");
         rectangle.draw();
+
+        System.out.println();
     }
 
     /**
      * @author Alyasaf Meireles
      */
     private static void factoryMethod() {
+        System.out.println("Factory method pattern >>>");
+
         TransportFactory truck = new TruckFactory();
         Transport transportTruck = truck.createTransport();
 
@@ -66,12 +76,16 @@ public class Main {
 
         transportShip.deliver();
         System.out.println(transportShip.calcFee(15.7));
+
+        System.out.println();
     }
 
     /**
      * @author Alyasaf Meireles
      */
     private static void observer() {
+        System.out.println("Observer pattern >>>");
+
         Channel channel = new Channel();
 
         Observer observerOne = new Subscriber("Alyasaf");
@@ -84,20 +98,26 @@ public class Main {
 
         channel.removeObserver(observerOne);
         channel.publisherNotice("Versão 24 do Java ☕");
+
+        System.out.println();
     }
 
     /**
      * @author Alyasaf Meireles
      */
     private static void facade() {
+        System.out.println("Facade pattern >>>");
         EcommerceFacade facade = new EcommerceFacade();
         facade.processOrder(UUID.randomUUID(), "aly@email.com", 3.185);
+
+        System.out.println();
     }
 
     /**
      * @author Alyasaf Meireles
      */
     private static void memento() {
+        System.out.println("Memento pattern >>>");
         Editor editor = new Editor();
         History history = new History();
 
@@ -114,12 +134,16 @@ public class Main {
         editor.restore(history.getMementoByIndex(0));
 
         System.out.println("Conteúdo atual: " + editor.getContent());
+
+        System.out.println();
     }
 
     /**
      * @author Alyasaf Meireles
      */
     private static void composite() {
+        System.out.println("Composite pattern >>>");
+
         ComponentDocument textOneHeader = new Text("Olá mundo");
         ComponentDocument textTwoHeader = new Text("Aly");
 
@@ -136,5 +160,25 @@ public class Main {
         System.out.println("Documento completo:");
         header.show();
         body.show();
+
+        System.out.println();
+    }
+
+    /**
+     * @author Alyasaf Meireles
+     */
+    private static void builder() {
+        System.out.println("Builder pattern >>>");
+
+        Car car = new Car.Builder()
+                .setEngine("V8")
+                .setColor("Branco")
+                .setWheels("18 inch")
+                .setDoorQuantity(2)
+                .build();
+
+        System.out.println(car);
+
+        System.out.println();
     }
 }
