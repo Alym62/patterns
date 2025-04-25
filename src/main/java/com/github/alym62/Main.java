@@ -16,6 +16,8 @@ import com.github.alym62.memento.History;
 import com.github.alym62.observer.Channel;
 import com.github.alym62.observer.Observer;
 import com.github.alym62.observer.Subscriber;
+import com.github.alym62.proxy.CacheService;
+import com.github.alym62.proxy.DataService;
 
 import java.util.UUID;
 
@@ -41,6 +43,9 @@ public class Main {
 
         // Builder pattern
         builder();
+
+        // Proxy pattern
+        proxy();
     }
 
     /**
@@ -178,6 +183,29 @@ public class Main {
                 .build();
 
         System.out.println(car);
+
+        System.out.println();
+    }
+
+    /**
+     * @author Alyasaf Meireles
+     */
+    private static void proxy() {
+        System.out.println("Proxy pattern >>>");
+
+        DataService dataService = new CacheService();
+
+        // Primeira consulta: resultado será buscado e armazenado em cache
+        System.out.println(dataService.getData("SELECT * FROM users")); // Fará a consulta
+
+        // Segunda consulta com a mesma query: resultado será retornado do cache
+        System.out.println(dataService.getData("SELECT * FROM users")); // Retornará do cache
+
+        // Consulta com uma query diferente: resultado será buscado e armazenado em cache
+        System.out.println(dataService.getData("SELECT * FROM orders")); // Fará a consulta
+
+        // Repetindo a consulta anterior: resultado será retornado do cache
+        System.out.println(dataService.getData("SELECT * FROM orders"));
 
         System.out.println();
     }
